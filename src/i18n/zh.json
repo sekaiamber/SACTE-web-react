@@ -1,0 +1,39 @@
+{
+  "translations": {
+    "common": {
+      "beian": "浙ICP备2021006943号-3",
+      "actions": {
+        "comfirm": "确认",
+        "loading": "加载中",
+        "pull-to-down": "暂无更多秘宝~",
+        "pull-down-refresh": " 下拉刷新",
+        "release-refresh": " 下拉刷新"
+      },
+      "creator": "创作者",
+      "chain": {
+        "mainnet": "主网",
+        "testnet": "测试网"
+      },
+      "share": {
+        "copy": "点击复制链接并分享至社交媒体",
+        "close": "关闭"
+      },
+      "limit": {
+        "limit": "限量",
+        "unlimit": "不限量"
+      },
+      "vip": {
+        "weibo": "微博认证: {{title}}",
+        "weibo-no-desc": "微博认证"
+      },
+      "baned": {
+        "nft": "该秘宝暂不予显示",
+        "issuer": "该创作者暂不予显示"
+      },
+      "colon": "：",
+      "title": "秘宝账户",
+      "description": "随时随地查看并管理你的秘宝",
+      "img-lost": "图片失联"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+@font-face {
+    font-family: 'akira_outline';
+    src: url('AkiraExpanded-Outline.woff2') format('woff2'),
+        url('AkiraExpanded-Outline.woff') format('woff');
+    font-style: normal;
+    font-display: swap;
+}
+

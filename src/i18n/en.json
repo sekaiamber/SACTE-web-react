@@ -1,0 +1,65 @@
+{
+  "translations": {
+    "common": {
+      "beian": "浙ICP备2021006943号-3",
+      "actions": {
+        "comfirm": "Confirm",
+        "loading": "Loading",
+        "pull-to-down": "No More NFT~",
+        "pull-down-refresh": " Pull down to refresh",
+        "release-refresh": " Release to refresh"
+      },
+      "creator": "Creator",
+      "chain": {
+        "mainnet": "Mainnet",
+        "testnet": "Testnet"
+      },
+      "share": {
+        "copy": "Click to copy the link and share to social media",
+        "close": "Close"
+      },
+      "limit": {
+        "limit": "Limited",
+        "unlimit": "Unlimited"
+      },
+      "vip": {
+        "weibo": "Weibo verification: {{title}}",
+        "weibo-no-desc": "Weibo verification"
+      },
+      "baned": {
+        "nft": "Invalid NFT",
+        "issuer": "Invalid creator"
+      },
+      "colon": ":",
+      "title": "NFT Account",
+      "description": "View and manage your NFT anytime, anywhere",
+      "img-lost": "Image lost",
+      "needlogin": "Please Login"
+    },
+    "auth": {
+      "launch": "Launch app",
+      "login": "Login",
+      "signup": "Register",
+      "email": "Email",
+      "password": "Password"
+    },
+    "mycolor": {
+      "title": "My Colors",
+      "opt": {
+        "available": "Use Color",
+        "used": "Used"
+      },
+      "filter": "Hide Used Color",
+      "empty": "No color available"
+    },
+    "stats": {
+      "total": "Total Modified",
+      "user": "My Modified"
+    },
+    "buycolor": {
+      "title": "Buy Color",
+      "click": "Click To Buy",
+      "submit": "Buy"
+    }
+  }
+}

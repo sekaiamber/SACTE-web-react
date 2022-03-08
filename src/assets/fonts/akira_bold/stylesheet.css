@@ -1,0 +1,8 @@
+@font-face {
+    font-family: 'akira_bold';
+    src: url('AkiraExpanded-Bold.woff2') format('woff2'),
+        url('AkiraExpanded-Bold.woff') format('woff');
+    font-style: normal;
+    font-display: swap;
+}
+

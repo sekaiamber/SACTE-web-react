@@ -1,0 +1,169 @@
+$transition: all ease 0.35s;
+
+.page {
+  min-height: 100%;
+}
+
+.container {
+  max-width: 1240px;
+  padding: 0 20px;
+  margin: auto;
+
+  &.sm {
+    max-width: 640px;
+  }
+}
+
+#header {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  color: #fff;
+
+  .logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: $transition;
+
+    .h1 {
+      transition: $transition;
+      font-size: 150px;
+      font-family: 'akira_outline';
+      position: relative;
+
+      .shadow {
+        transition: $transition;
+        font-size: 150px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        font-family: 'akira_superbold';
+        color: #fff;
+        opacity: 0.15;
+      }
+    }
+    .h2 {
+      transition: $transition;
+      font-size: 20px;
+      font-family: 'akira_superbold';
+    }
+    .exp {
+      transition: $transition;
+      opacity: 1;
+      text-align: right;
+  
+      button {
+        font-family: 'akira_superbold';
+        cursor: pointer;
+        font-size: 30px;
+        border: none;
+        background-color: transparent;
+        color: #fff;
+        
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  .logoborder {
+    position: absolute;
+    top: 0;
+    left: 100px;
+    transform: translate(0, -8px);
+    height: 8px;
+    width: 180px;
+    background-color: #ff102a;
+    transition: $transition;
+  }
+
+  .menu {
+    transition: $transition;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    right: 100px;
+    padding: 20px 0;
+    margin: 0;
+    font-size: 20px;
+
+    li {
+      display: inline-block;
+      list-style: none;
+      font-family: 'akira_superbold';
+      margin: 0 20px;
+
+      a {
+        cursor: pointer;
+
+        &.active,
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  &.exp {
+    .logo {
+      top: 0;
+      left: 100px;
+      transform: translate(0, 0);
+
+      .h1 {
+        font-size: 40px;
+
+        .shadow {
+          font-size: 40px;
+          opacity: 1;
+        }
+      }
+
+      .h2,
+      .exp {
+        opacity: 0;
+        pointer-events: none;
+      }
+    }
+
+    .logoborder {
+      transform: translate(0, 0);
+    }
+
+    .menu {
+      opacity: 1;
+      pointer-events: all;
+    }
+  }
+}
+
+#sidebar {
+  position: absolute;
+  bottom: 0;
+  right: 100px;
+  color: #fff;
+  text-align: center;
+  padding-bottom: 10px;
+  border-bottom: #ff102a solid 6px;
+  opacity: 0;
+  transition: $transition;
+
+  &.exp {
+    opacity: 1;
+  }
+
+  .h1 {
+    font-family: 'akira_superbold';
+    font-size: 80px;
+  }
+  .h2 {
+    font-family: 'akira_bold';
+    font-size: 14px;
+  }
+}
