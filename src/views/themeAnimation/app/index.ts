@@ -12,15 +12,15 @@ import Road from './road'
 import CarLights from './carLights'
 import LightsSticks from './lightsSticks'
 import AppAttributeSetter from './appAttributeSetter'
-import { lerp } from './math'
+import { lerp, formattedAlpha } from './math'
 
 export type MinMax = [number, number]
 export type RawColor = number | string
 export type LerpVector = THREE.Vector2 | THREE.Vector3 | THREE.Vector4
 
-const AUTOLOOKAT_TIMESPIN = 1.5
-const FLATROAD_TIMESPIN = 1.5
-const MOVECAMERA_TIMESPIN = 1.5
+const AUTOLOOKAT_TIMESPIN = 0.6
+const FLATROAD_TIMESPIN = 0.6
+const MOVECAMERA_TIMESPIN = 0.6
 
 export interface AppOptions {
   onSpeedUp: (ev: MouseEvent) => void
@@ -150,8 +150,9 @@ export default class App {
   // camera autoLookAt
   private isAutoLookAt = true
   private readonly autoLookAtVector3 = new THREE.Vector3(0, 0, -1)
-  private readonly autoLookAtStartVector3 = new THREE.Vector3(0, 0, -1)
   private readonly autoLookAtRealVector3 = new THREE.Vector3(0, 0, -1)
+  // eslint-disable-next-line prettier/prettier
+  private autoLookAtEaseQuaternions: [THREE.Quaternion, THREE.Quaternion?] = [new THREE.Quaternion(0, 0, 0, 0)]
   private autoLookAtTargetTime = -1
 
   // flat road
@@ -275,7 +276,6 @@ export default class App {
         resolutionScale: 1,
       })
     )
-    // console.log(this.assets.smaa, this.camera)
     const smaaPass = new EffectPass(
       this.camera,
       new SMAAEffect(
@@ -390,43 +390,69 @@ export default class App {
     if (this.moveCameraTargetTime >= time) {
       const alpha =
         1 -
-        Math.min((this.moveCameraTargetTime - time) / MOVECAMERA_TIMESPIN, 1)
+        formattedAlpha(
+          this.moveCameraTargetTime - time,
+          MOVECAMERA_TIMESPIN,
+          0.01
+        )
       this.moveCameraRealVector3.lerpVectors(
         this.moveCameraStartVector3,
         this.moveCameraTargetVector3,
         alpha
       )
       this.camera.position.copy(this.moveCameraRealVector3)
-      console.log(
-        alpha,
-        this.moveCameraStartVector3,
-        this.moveCameraTargetVector3
-      )
       updateCamera = true
     }
 
     // camera rotate
-    if (this.options.distortion.getJS && this.isAutoLookAt) {
-      const distortion = this.options.distortion.getJS(0.025, time)
-      this.autoLookAtVector3.set(
-        this.camera.position.x + distortion.x,
-        this.camera.position.y + distortion.y,
-        this.camera.position.z + distortion.z
-      )
-      if (this.autoLookAtTargetTime >= time) {
+    if (this.options.distortion.getJS) {
+      if (this.isAutoLookAt) {
+        // start auto look at
+        const distortion = this.options.distortion.getJS(0.025, time)
+        this.autoLookAtVector3.set(
+          this.camera.position.x + distortion.x,
+          this.camera.position.y + distortion.y,
+          this.camera.position.z + distortion.z
+        )
+        if (this.autoLookAtTargetTime >= time) {
+          const alpha =
+            1 -
+            formattedAlpha(
+              this.autoLookAtTargetTime - time,
+              AUTOLOOKAT_TIMESPIN,
+              0.01
+            )
+          const ca = this.camera.clone()
+          ca.lookAt(this.autoLookAtVector3)
+          this.camera.quaternion.slerpQuaternions(
+            this.autoLookAtEaseQuaternions[0],
+            ca.quaternion,
+            alpha
+          )
+        } else {
+          this.autoLookAtRealVector3.copy(this.autoLookAtVector3)
+          this.camera.lookAt(this.autoLookAtRealVector3)
+        }
+        updateCamera = true
+      } else if (
+        this.autoLookAtTargetTime >= time &&
+        this.autoLookAtEaseQuaternions[1]
+      ) {
+        // finish auto look at then move to a point
         const alpha =
           1 -
-          Math.min((this.autoLookAtTargetTime - time) / AUTOLOOKAT_TIMESPIN, 1)
-        this.autoLookAtRealVector3.lerpVectors(
-          this.autoLookAtStartVector3,
-          this.autoLookAtVector3,
+          formattedAlpha(
+            this.autoLookAtTargetTime - time,
+            AUTOLOOKAT_TIMESPIN,
+            0.01
+          )
+        this.camera.quaternion.slerpQuaternions(
+          this.autoLookAtEaseQuaternions[0],
+          this.autoLookAtEaseQuaternions[1],
           alpha
         )
-      } else {
-        this.autoLookAtRealVector3.copy(this.autoLookAtVector3)
+        updateCamera = true
       }
-      this.camera.lookAt(this.autoLookAtRealVector3)
-      updateCamera = true
     }
     if (updateCamera) {
       this.camera.updateProjectionMatrix()
@@ -434,9 +460,10 @@ export default class App {
 
     // flatRoad
     if (this.flatRoadRealVector3s && this.flatRoadTargetTime >= time) {
-      let alpha = Math.min(
-        (this.flatRoadTargetTime - time) / FLATROAD_TIMESPIN,
-        1
+      let alpha = formattedAlpha(
+        this.flatRoadTargetTime - time,
+        FLATROAD_TIMESPIN,
+        0.01
       )
       if (!this.isFlatRoad) {
         // 1 -> 0
@@ -499,14 +526,29 @@ export default class App {
     requestAnimationFrame(this.tick)
   }
 
-  cameraAutoLookAt(isAutoLookAt: boolean): void {
+  cameraAutoLookAt(isAutoLookAt: boolean, direction?: THREE.Quaternion): void {
     if (this.isAutoLookAt && !isAutoLookAt) {
       // off
       this.isAutoLookAt = isAutoLookAt
-      this.autoLookAtStartVector3.copy(this.autoLookAtRealVector3)
+      this.autoLookAtEaseQuaternions[0] = this.camera.quaternion.clone()
+      this.autoLookAtEaseQuaternions[1] = undefined
+      if (direction) {
+        this.autoLookAtEaseQuaternions[1] = direction
+      }
+      this.autoLookAtTargetTime = this.clock.elapsedTime + AUTOLOOKAT_TIMESPIN
     } else if (!this.isAutoLookAt && isAutoLookAt) {
       // on
       this.isAutoLookAt = isAutoLookAt
+      this.autoLookAtEaseQuaternions[0] = this.camera.quaternion.clone()
+      this.autoLookAtEaseQuaternions[1] = undefined
+      this.autoLookAtTargetTime = this.clock.elapsedTime + AUTOLOOKAT_TIMESPIN
+    } else if (!this.isAutoLookAt && direction) {
+      // off, change the direction
+      this.autoLookAtEaseQuaternions[0] = this.camera.quaternion.clone()
+      this.autoLookAtEaseQuaternions[1] = undefined
+      if (direction) {
+        this.autoLookAtEaseQuaternions[1] = direction
+      }
       this.autoLookAtTargetTime = this.clock.elapsedTime + AUTOLOOKAT_TIMESPIN
     }
   }
@@ -524,6 +566,7 @@ export default class App {
   }
 
   moveCameraPosition(position: THREE.Vector3): void {
+    if (position.equals(this.camera.position)) return
     this.moveCameraTargetTime = this.clock.elapsedTime + MOVECAMERA_TIMESPIN
     this.moveCameraTargetVector3.copy(position)
     this.moveCameraStartVector3.copy(this.camera.position)

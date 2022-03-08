@@ -19,3 +19,14 @@ export function lerp(
   }
   return change
 }
+
+export function formattedAlpha(
+  current: number,
+  target: number,
+  limit: number = 0.001
+): number {
+  const alpha = Math.max(Math.min(current / target, 1), 0)
+  if (alpha < limit) return 0
+  if (1 - alpha < limit) return 1
+  return alpha
+}

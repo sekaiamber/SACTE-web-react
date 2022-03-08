@@ -7,12 +7,15 @@ const Welcome: React.FC = () => {
 
   return (
     <header id="header" className={classnames({ exp: currentPage.headerExp })}>
+      <div className="back"></div>
       <div className="logoborder"></div>
       <div className="logo">
         <div className="h2">Blockchain Institution</div>
         <div className="h1">
           SACTE
-          <div className="shadow">SACTE</div>
+          <div className="shadow" onClick={() => setCurrentPage(Pages.welcome)}>
+            SACTE
+          </div>
         </div>
         <div className="exp">
           <button onClick={() => setCurrentPage(Pages.whoweare)}>

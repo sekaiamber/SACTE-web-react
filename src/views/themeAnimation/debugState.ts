@@ -81,9 +81,9 @@ export default function useDebugState(
     helper.visible = gridHelperVisible
   }, [gridHelperVisible])
 
-  const cameraX = useDebugNumber('env/camera', 'position x', 0, -30, 30, 1)
-  const cameraY = useDebugNumber('env/camera', 'position y', 8, -30, 30, 1)
-  const cameraZ = useDebugNumber('env/camera', 'position z', -5, -30, 30, 1)
+  const cameraX = useDebugNumber('env/camera', 'position x', 0, -60, 60, 1)
+  const cameraY = useDebugNumber('env/camera', 'position y', 8, -60, 60, 1)
+  const cameraZ = useDebugNumber('env/camera', 'position z', -5, -60, 60, 1)
   useEffect(() => {
     if (app.current) {
       app.current.camera.position.setX(cameraX)
@@ -99,9 +99,9 @@ export default function useDebugState(
     }
   }, [autoLookAt])
 
-  const cameraRX = useDebugNumber('env/camera', 'look x', 0, -0.5, 0.5, 0.001)
-  const cameraRY = useDebugNumber('env/camera', 'look y', 0, -0.5, 0.5, 0.001)
-  const cameraRZ = useDebugNumber('env/camera', 'look z', 0, -0.5, 0.5, 0.001)
+  const cameraRX = useDebugNumber('env/camera', 'look x', 0, -1, 1, 0.001)
+  const cameraRY = useDebugNumber('env/camera', 'look y', 0, -5, 5, 0.001)
+  const cameraRZ = useDebugNumber('env/camera', 'look z', 0, -1, 1, 0.001)
   useEffect(() => {
     if (app.current) {
       app.current.cameraManualLookAt(

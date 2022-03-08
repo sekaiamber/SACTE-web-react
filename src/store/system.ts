@@ -7,7 +7,7 @@ interface AnimeState {
   camera: {
     position: THREE.Vector3
     autoLookAt: boolean
-    lookAtDirection?: THREE.Vector3
+    lookAtQuaternion?: THREE.Quaternion
   }
 }
 
@@ -48,8 +48,13 @@ const Pages: IPages = {
       flatRoad: true,
       camera: {
         autoLookAt: false,
-        position: new THREE.Vector3(9, 13, -23),
-        lookAtDirection: new THREE.Vector3(-0.05, -0.34, -0.11),
+        position: new THREE.Vector3(22, 33, -17),
+        lookAtQuaternion: new THREE.Quaternion(
+          -0.5647384530319085,
+          0.11305135952609609,
+          0.0784603527369658,
+          0.8137160701527402
+        ),
       },
     },
   },
@@ -59,10 +64,11 @@ const Pages: IPages = {
     headerExp: true,
     menuActive: 'whatwedo',
     animeState: {
-      flatRoad: false,
+      flatRoad: true,
       camera: {
-        autoLookAt: true,
-        position: new THREE.Vector3(0, 8, -5),
+        autoLookAt: false,
+        position: new THREE.Vector3(30, 60, -130),
+        lookAtQuaternion: new THREE.Quaternion(-0.5, 0.5, 0.5, 0.5),
       },
     },
   },

@@ -1,4 +1,5 @@
 $transition: all ease 0.35s;
+$transitionContent: all ease 0.6s;
 
 .page {
   min-height: 100%;
@@ -22,12 +23,24 @@ $transition: all ease 0.35s;
   width: 100%;
   color: #fff;
 
+  .back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 90px;
+    width: 100%;
+    background-color: transparent;
+    transition: $transition;
+    z-index: 98;
+  }
+
   .logo {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     transition: $transition;
+    z-index: 99;
 
     .h1 {
       transition: $transition;
@@ -80,6 +93,7 @@ $transition: all ease 0.35s;
     width: 180px;
     background-color: #ff102a;
     transition: $transition;
+    z-index: 99;
   }
 
   .menu {
@@ -92,6 +106,7 @@ $transition: all ease 0.35s;
     padding: 20px 0;
     margin: 0;
     font-size: 20px;
+    z-index: 99;
 
     li {
       display: inline-block;
@@ -111,6 +126,10 @@ $transition: all ease 0.35s;
   }
 
   &.exp {
+    .back {
+      background-color: rgba($color: #000000, $alpha: 0.5);
+    }
+
     .logo {
       top: 0;
       left: 100px;
@@ -120,6 +139,7 @@ $transition: all ease 0.35s;
         font-size: 40px;
 
         .shadow {
+          cursor: pointer;
           font-size: 40px;
           opacity: 1;
         }
@@ -165,5 +185,118 @@ $transition: all ease 0.35s;
   .h2 {
     font-family: 'akira_bold';
     font-size: 14px;
+  }
+}
+
+.page-content {
+  position: absolute;
+  width: calc(100% - 200px);
+  height: 100%;
+  right: 100px;
+  top: 0;
+  color: #fff;
+  pointer-events: none;
+
+  &.show {
+    pointer-events: all;
+  }
+
+  .content-border {
+    padding-top: 90px;
+    padding-bottom: 125px;
+    min-height: 100vh;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+  }
+
+  .content-container {
+    width: 100%;
+  }
+}
+
+.whoweare-content {
+  text-align: right;
+
+  .text {
+    margin-left: auto;
+    width: 50%;
+    font-family: 'akira_bold';
+
+    &>div {
+      opacity: 0;
+      transform: translate(0, 10px);
+      transition: $transitionContent;
+
+      &:nth-child(2) {
+        transition-delay: 0.3s;
+      }
+      &:nth-child(3) {
+        transition-delay: 0.6s;
+      }
+    }
+  }
+
+  .h1 {
+    font-size: 24px;
+  }
+  .h2 {
+    margin: 20px 0;
+    font-size: 30px;
+    color: #ff102a;
+  }
+
+  &.show {
+    .text>div {
+      opacity: 1;
+      transform: translate(0, 0);
+    }
+  }
+}
+
+.whatwedo-content {
+  padding-top: 200px;
+
+  .dos {
+    display: flex;
+    column-gap: 20px;
+    font-family: 'akira_bold';
+
+    .icon {
+      margin-bottom: 40px;
+
+      .iconfont {
+        font-size: 60px;
+      }
+    }
+
+    .do {
+      width: 20%;
+      text-align: center;
+
+      opacity: 0;
+      transform: translate(0, 10px);
+      transition: $transitionContent;
+
+      &:nth-child(2) {
+        transition-delay: 0.3s;
+      }
+      &:nth-child(3) {
+        transition-delay: 0.6s;
+      }
+      &:nth-child(4) {
+        transition-delay: 0.9s;
+      }
+      &:nth-child(5) {
+        transition-delay: 1.2s;
+      }
+    }
+  }
+
+  &.show {
+    .do {
+      opacity: 1;
+      transform: translate(0, 0);
+    }
   }
 }

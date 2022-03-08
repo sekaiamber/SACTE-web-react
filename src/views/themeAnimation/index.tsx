@@ -88,6 +88,7 @@ const ThemeAnimation: React.FC = () => {
     const container = document.getElementById('root')
     if (container) {
       app.current = new App(container, defaultOptions)
+      ;(window as any).app = app.current
       app.current
         .loadAssets()
         .then(app.current.init)
@@ -99,7 +100,10 @@ const ThemeAnimation: React.FC = () => {
     const { animeState } = currentPage
     if (app.current) {
       app.current.flatRoad(animeState.flatRoad)
-      app.current.cameraAutoLookAt(animeState.camera.autoLookAt)
+      app.current.cameraAutoLookAt(
+        animeState.camera.autoLookAt,
+        animeState.camera.lookAtQuaternion
+      )
       app.current.moveCameraPosition(animeState.camera.position)
     }
   }, [currentPage])
