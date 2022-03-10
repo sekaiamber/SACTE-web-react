@@ -3,6 +3,7 @@ import ThemeAnimation from '../themeAnimation'
 import Header from './header'
 import Sidebar from './sidebar'
 import Content from './content'
+import Footer from './footer'
 import './style.scss'
 
 export const Home: React.FC = () => {
@@ -12,6 +13,7 @@ export const Home: React.FC = () => {
       <Header />
       <Sidebar />
       <Content />
+      <Footer />
     </>
   )
 }

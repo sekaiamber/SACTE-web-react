@@ -62,11 +62,11 @@ const defaultOptions: AppOptions = {
   carFloorSeparation: [0.05, 1],
 
   colors: {
-    roadColor: '#080808',
+    roadColor: '#1c1c1d',
     islandColor: '#0a0a0a',
-    background: '#000000',
+    background: '#0e0f14',
     shoulderLines: '#131318',
-    brokenLines: '#010c06',
+    brokenLines: '#47484e',
     leftCars: ['#ff102a', '#eb383e', '#ff102a'],
     rightCars: ['#dadafa', '#bebae3', '#8f97e4'],
     sticks: '#dadafa',

@@ -1,0 +1,139 @@
+#header {
+  .logo {
+    top: 35%;
+  
+    .h2 {
+      font-size: 16px;
+    }
+  
+    .h1 .logo-img {
+      width: 85vw;
+      height: auto;
+      margin: 8px 0 6px;
+    }
+  
+    .exp button {
+      font-size: 20px;
+    }
+  }
+
+  .logoborder {
+    width: 120px;
+    left: 20px;
+  }
+
+  .back {
+    height: 70px;
+  }
+
+  .menu {
+    top: 70px;
+    width: 100%;
+    right: auto;
+    padding: 30px 0;
+    opacity: 0;
+    pointer-events: none;
+
+    li {
+      display: block;
+      font-size: 24px;
+      margin: 12px 20px;
+      text-align: right;
+    }
+  }
+
+  &.exp {
+    .m-menu {
+      display: block;
+    }
+
+    .menu {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .logo {
+      left: 20px;
+
+      .logo-img {
+        height: auto;
+        width: 120px;
+      }
+    }
+  }
+
+  &.menu-opened {
+    .back {
+      height: 100vh;
+      background-color: rgba($color: #0e0f14, $alpha: 0.8);
+    }
+
+    .menu {
+      opacity: 1;
+      pointer-events: all;
+    }
+  }
+}
+
+footer {
+  display: none;
+}
+
+#sidebar {
+  right: auto;
+  left: 50%;
+  transform: translate(-50%, 0);
+
+  .h1 {
+    font-size: 60px;
+  }
+  .h2 {
+    font-size: 12px;
+  }
+}
+
+.page-content {
+  width: calc(100% - 40px);
+  right: 20px;
+
+  .content-border {
+    padding-top: 70px;
+    padding-bottom: 100px;
+  }
+}
+
+.whoweare-content {
+  text-align: center;
+
+  .text {
+    width: 100%;
+    text-shadow: 0 0 8px #1a1919;
+  }
+
+  .h1 {
+    font-size: 16px;
+  }
+  .h2 {
+    font-size: 24px;
+  }
+}
+
+.whatwedo-content {
+  padding-top: 40px;
+
+  .dos {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 20px;
+    row-gap: 36px;
+    font-size: 14px;
+    text-shadow: 0 0 8px #1a1919;
+
+    .icon {
+      margin-bottom: 12px;
+
+      .iconfont {
+        font-size: 50px;
+      }
+    }
+  }
+}

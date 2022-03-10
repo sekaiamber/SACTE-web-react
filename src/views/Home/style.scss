@@ -44,9 +44,23 @@ $transitionContent: all ease 0.6s;
 
     .h1 {
       transition: $transition;
-      font-size: 150px;
-      font-family: 'akira_outline';
       position: relative;
+      margin: 15px 0 10px;
+
+      .logo-img {
+        display: block;
+        height: 150px;
+        transition: $transition;
+
+        path,
+        polygon {
+          fill: rgba($color: #fff, $alpha: 0.15);
+          stroke: #fff;
+          stroke-width: 2;
+          stroke-miterlimit: 10;
+          transition: $transition;
+        }
+      }
 
       .shadow {
         transition: $transition;
@@ -90,7 +104,7 @@ $transitionContent: all ease 0.6s;
     left: 100px;
     transform: translate(0, -8px);
     height: 8px;
-    width: 180px;
+    width: 165px;
     background-color: #ff102a;
     transition: $transition;
     z-index: 99;
@@ -136,12 +150,16 @@ $transitionContent: all ease 0.6s;
       transform: translate(0, 0);
 
       .h1 {
-        font-size: 40px;
+        margin: 0;
+      }
 
-        .shadow {
-          cursor: pointer;
-          font-size: 40px;
-          opacity: 1;
+      .logo-img {
+        height: 40px;
+        cursor: pointer;
+
+        path,
+        polygon {
+          fill: #fff;
         }
       }
 
@@ -159,6 +177,60 @@ $transitionContent: all ease 0.6s;
     .menu {
       opacity: 1;
       pointer-events: all;
+    }
+  }
+
+  .m-menu {
+    display: none;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 99;
+
+    svg {
+      height: 50px;
+      width: 50px;
+    }
+
+    .line {
+      fill: none;
+      stroke: #fff;
+      stroke-width: 6;
+      transition: stroke-dasharray 600ms cubic-bezier(0.4, 0, 0.2, 1),
+        stroke-dashoffset 600ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .line1 {
+      stroke-dasharray: 60 207;
+      stroke-width: 6;
+    }
+    .line2 {
+      stroke-dasharray: 60 60;
+      stroke-width: 6;
+    }
+    .line3 {
+      stroke-dasharray: 60 207;
+      stroke-width: 6;
+    }
+    &.opened {
+      .line1 {
+        stroke-dasharray: 90 207;
+        stroke-dashoffset: -134;
+        stroke-width: 6;
+      }
+      .line2 {
+        stroke-dasharray: 1 60;
+        stroke-dashoffset: -30;
+        stroke-width: 6;
+      }
+      .line3 {
+        stroke-dasharray: 90 207;
+        stroke-dashoffset: -134;
+        stroke-width: 6;
+      }
     }
   }
 }
@@ -196,6 +268,12 @@ $transitionContent: all ease 0.6s;
   top: 0;
   color: #fff;
   pointer-events: none;
+
+  // scrollbar
+  .ScrollbarsCustom-Track {
+    opacity: 0;
+    pointer-events: none;
+  }
 
   &.show {
     pointer-events: all;
@@ -258,9 +336,12 @@ $transitionContent: all ease 0.6s;
   padding-top: 200px;
 
   .dos {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+
     column-gap: 20px;
     font-family: 'akira_bold';
+    font-size: 16px;
 
     .icon {
       margin-bottom: 40px;
@@ -271,7 +352,6 @@ $transitionContent: all ease 0.6s;
     }
 
     .do {
-      width: 20%;
       text-align: center;
 
       opacity: 0;
@@ -299,4 +379,44 @@ $transitionContent: all ease 0.6s;
       transform: translate(0, 0);
     }
   }
+}
+
+footer {
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  color: #484b5c;
+  font-size: 12px;
+  opacity: 0;
+
+  &.show {
+    opacity: 1;
+  }
+}
+
+// mid screen
+@media screen and (min-width: 540px) and (max-width: 960px) {
+  #header .menu {
+    font-size: 16px;
+  }
+
+  .whatwedo-content {
+    padding-top: 100px;
+  }
+
+  .whatwedo-content .dos {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    row-gap: 40px;
+    font-size: 14px;
+
+    .icon {
+      margin-bottom: 20px;
+    }
+  }
+}
+
+// mid screen
+@media screen and (max-width: 540px) {
+  @import './style.m.scss';
 }

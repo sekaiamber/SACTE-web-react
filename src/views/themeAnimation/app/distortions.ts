@@ -24,6 +24,7 @@ export interface DistortionUniformsValues<TValue = any> {
   uFreq: TValue
   uAmp: TValue
   uPowY?: TValue
+  uMovementProgressFix?: any
 }
 export interface Uniforms<TValue = any> {
   [uniform: string]: THREE.IUniform<TValue> | RawIUniforms<TValue>
@@ -34,17 +35,23 @@ export interface Distortion {
   uniformValues: DistortionUniformsValues
   flatUniformValues: DistortionUniformsValues
   getDistortion: string
-  getJS?: (progress: number, time: number) => THREE.Vector3
+  getJS?: (
+    progress: number,
+    time: number,
+    movementProgressFix?: number
+  ) => THREE.Vector3
 }
 
 const mountainUniforms: Uniforms = {
   // x, y, z
   uFreq: new THREE.Uniform(new THREE.Vector3(3, 6, 10)),
   uAmp: new THREE.Uniform(new THREE.Vector3(30, 30, 20)),
+  uMovementProgressFix: new THREE.Uniform(0.02),
 }
 const mountainUniformsFlat: DistortionUniformsValues = {
   uFreq: new THREE.Vector3(1, 1, 1),
   uAmp: new THREE.Vector3(1, 1, 1),
+  uMovementProgressFix: 0.025,
 }
 // const mountainUniforms: Uniforms = {
 //   // x, y, z
@@ -106,6 +113,9 @@ function getUniformsValues(uniforms: Uniforms): DistortionUniformsValues {
   if (uniforms.uPowY) {
     ret.uPowY = uniforms.uPowY.value.clone()
   }
+  if (uniforms.uMovementProgressFix) {
+    ret.uMovementProgressFix = uniforms.uMovementProgressFix.value
+  }
   return ret
 }
 
@@ -119,6 +129,7 @@ const mountainDistortion: Distortion = {
 
     uniform vec3 uAmp;
     uniform vec3 uFreq;
+    uniform float uMovementProgressFix;
 
     #define PI 3.14159265358979
     
@@ -127,28 +138,25 @@ const mountainDistortion: Distortion = {
         }
     
     vec3 getDistortion(float progress){
-
-            float movementProgressFix = 0.02;
             return vec3( 
-                cos(progress * PI * uFreq.x + uTime) * uAmp.x - cos(movementProgressFix * PI * uFreq.x + uTime) * uAmp.x,
-                nsin(progress * PI * uFreq.y + uTime) * uAmp.y - nsin(movementProgressFix * PI * uFreq.y + uTime) * uAmp.y,
-                nsin(progress * PI * uFreq.z + uTime) * uAmp.z - nsin(movementProgressFix * PI * uFreq.z + uTime) * uAmp.z
+                cos(progress * PI * uFreq.x + uTime) * uAmp.x - cos(uMovementProgressFix * PI * uFreq.x + uTime) * uAmp.x,
+                nsin(progress * PI * uFreq.y + uTime) * uAmp.y - nsin(uMovementProgressFix * PI * uFreq.y + uTime) * uAmp.y,
+                nsin(progress * PI * uFreq.z + uTime) * uAmp.z - nsin(uMovementProgressFix * PI * uFreq.z + uTime) * uAmp.z
             );
         }
 `,
   getJS: (progress, time) => {
-    const movementProgressFix = 0.02
-
     const uFreq = mountainUniforms.uFreq.value
     const uAmp = mountainUniforms.uAmp.value
+    const uMovementProgressFix = mountainUniforms.uMovementProgressFix.value
 
     const distortion = new THREE.Vector3(
       Math.cos(progress * Math.PI * uFreq.x + time) * uAmp.x -
-        Math.cos(movementProgressFix * Math.PI * uFreq.x + time) * uAmp.x,
+        Math.cos(uMovementProgressFix * Math.PI * uFreq.x + time) * uAmp.x,
       nsin(progress * Math.PI * uFreq.y + time) * uAmp.y -
-        nsin(movementProgressFix * Math.PI * uFreq.y + time) * uAmp.y,
+        nsin(uMovementProgressFix * Math.PI * uFreq.y + time) * uAmp.y,
       nsin(progress * Math.PI * uFreq.z + time) * uAmp.z -
-        nsin(movementProgressFix * Math.PI * uFreq.z + time) * uAmp.z
+        nsin(uMovementProgressFix * Math.PI * uFreq.z + time) * uAmp.z
     )
 
     const lookAtAmp = new THREE.Vector3(2, 2, 2)

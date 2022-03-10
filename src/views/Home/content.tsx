@@ -7,14 +7,14 @@ interface ContentProps {
   show: boolean
 }
 
-const T1 = 'To become a'
-const T2 = 'unique and irreplaceable'
-const T3 = 'institution dedicated to the emerging frontier of crypto.'
+const T1 = 'To Become An'
+const T2 = 'Unique And Irreplaceable Institution'
+const T3 = 'Dedicated to the Emerging frontier of crypto'
 
 const ContentChild: React.FC<ContentProps> = ({ show, children }) => {
   return (
     <div className={classnames('page-content', { show })}>
-      <RSC>
+      <RSC noScrollX>
         <div className="content-border">
           <div className="content-container">{children}</div>
         </div>

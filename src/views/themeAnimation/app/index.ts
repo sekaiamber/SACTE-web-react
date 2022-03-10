@@ -487,16 +487,25 @@ export default class App {
           alpha
         )
       }
-      ;(this.options.distortion.uniforms.uFreq.value as LerpVector).copy(
+      ;(optionDistortion.uniforms.uFreq.value as LerpVector).copy(
         this.flatRoadRealVector3s.uFreq as any
       )
-      ;(this.options.distortion.uniforms.uAmp.value as LerpVector).copy(
+      ;(optionDistortion.uniforms.uAmp.value as LerpVector).copy(
         this.flatRoadRealVector3s.uAmp as any
       )
-      if (this.options.distortion.uniforms.uPowY) {
-        ;(this.options.distortion.uniforms.uPowY.value as LerpVector).copy(
+      if (optionDistortion.uniforms.uPowY) {
+        ;(optionDistortion.uniforms.uPowY.value as LerpVector).copy(
           this.flatRoadRealVector3s.uPowY as any
         )
+      }
+      if (optionDistortion.uniforms.uMovementProgressFix) {
+        const currentMovementProgressFix =
+          (optionDistortion.flatUniformValues.uMovementProgressFix as number) -
+          (optionDistortion.flatUniformValues.uMovementProgressFix -
+            optionDistortion.uniformValues.uMovementProgressFix) *
+            alpha
+        optionDistortion.uniforms.uMovementProgressFix.value =
+          currentMovementProgressFix
       }
     }
   }
