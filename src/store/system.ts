@@ -4,6 +4,24 @@ import { createContainer } from './unstatedNextPro'
 
 const isMobile = window.innerWidth < 540
 
+export enum PageKey {
+  whoweare = 'whoweare',
+  whatwedo = 'whatwedo',
+  staking = 'staking',
+}
+
+export const PageNum = {
+  whoweare: '01',
+  whatwedo: '02',
+  staking: '01',
+}
+
+export const PageName = {
+  whoweare: 'Who We Are',
+  whatwedo: 'What We Do',
+  staking: 'Staking',
+}
+
 interface AnimeState {
   flatRoad: boolean
   camera: {
@@ -14,11 +32,9 @@ interface AnimeState {
 }
 
 export interface PageInfo {
-  num: null | '01' | '02'
-  name: null | 'Who We Are' | 'What We Do'
   headerExp: boolean
   footerShow: boolean
-  menuActive: null | 'whoweare' | 'whatwedo'
+  menuActive: null | PageKey
   animeState: AnimeState
 }
 
@@ -26,12 +42,16 @@ interface IPages {
   welcome: PageInfo
   whoweare: PageInfo
   whatwedo: PageInfo
+  staking: PageInfo
+}
+
+const contentPage: Pick<PageInfo, 'headerExp' | 'footerShow'> = {
+  headerExp: true,
+  footerShow: true,
 }
 
 const commonPages: IPages = {
   welcome: {
-    num: null,
-    name: null,
     headerExp: false,
     footerShow: false,
     menuActive: null,
@@ -44,11 +64,8 @@ const commonPages: IPages = {
     },
   },
   whoweare: {
-    num: '01',
-    name: 'Who We Are',
-    headerExp: true,
-    footerShow: true,
-    menuActive: 'whoweare',
+    ...contentPage,
+    menuActive: PageKey.whoweare,
     animeState: {
       flatRoad: true,
       camera: {
@@ -64,11 +81,8 @@ const commonPages: IPages = {
     },
   },
   whatwedo: {
-    num: '02',
-    name: 'What We Do',
-    headerExp: true,
-    footerShow: true,
-    menuActive: 'whatwedo',
+    ...contentPage,
+    menuActive: PageKey.whatwedo,
     animeState: {
       flatRoad: false,
       camera: {
@@ -78,12 +92,21 @@ const commonPages: IPages = {
       },
     },
   },
+  staking: {
+    ...contentPage,
+    menuActive: PageKey.staking,
+    animeState: {
+      flatRoad: true,
+      camera: {
+        autoLookAt: true,
+        position: new THREE.Vector3(0, 8, -5),
+      },
+    },
+  },
 }
 
 const mobilePages: IPages = {
   welcome: {
-    num: null,
-    name: null,
     headerExp: false,
     footerShow: false,
     menuActive: null,
@@ -96,11 +119,8 @@ const mobilePages: IPages = {
     },
   },
   whoweare: {
-    num: '01',
-    name: 'Who We Are',
-    headerExp: true,
-    footerShow: true,
-    menuActive: 'whoweare',
+    ...contentPage,
+    menuActive: PageKey.whoweare,
     animeState: {
       flatRoad: true,
       camera: {
@@ -116,17 +136,25 @@ const mobilePages: IPages = {
     },
   },
   whatwedo: {
-    num: '02',
-    name: 'What We Do',
-    headerExp: true,
-    footerShow: true,
-    menuActive: 'whatwedo',
+    ...contentPage,
+    menuActive: PageKey.whatwedo,
     animeState: {
       flatRoad: false,
       camera: {
         autoLookAt: false,
         position: new THREE.Vector3(15, 100, -200),
         lookAtQuaternion: new THREE.Quaternion(-0.5, 0.5, 0.5, 0.5),
+      },
+    },
+  },
+  staking: {
+    ...contentPage,
+    menuActive: PageKey.staking,
+    animeState: {
+      flatRoad: false,
+      camera: {
+        autoLookAt: true,
+        position: new THREE.Vector3(0, 8, -5),
       },
     },
   },

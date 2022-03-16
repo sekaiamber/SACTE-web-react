@@ -1,14 +1,18 @@
 import React from 'react'
 import classnames from 'classnames'
-import System from '../../store/system'
+import System, { PageNum, PageName } from '../../store/system'
 
 const Sidebar: React.FC = () => {
   const { currentPage } = System.useContainer()
 
   return (
     <nav id="sidebar" className={classnames({ exp: currentPage.headerExp })}>
-      <div className="h1">{currentPage.num}</div>
-      <div className="h2">{currentPage.name}</div>
+      {currentPage.menuActive && (
+        <>
+          <div className="h1">{PageNum[currentPage.menuActive]}</div>
+          <div className="h2">{PageName[currentPage.menuActive]}</div>
+        </>
+      )}
     </nav>
   )
 }

@@ -7,6 +7,11 @@ interface MenuButtomProps {
   onClick: () => void
 }
 
+const menuL1Map = {
+  about: ['whoweare', 'whatwedo'],
+  stake: ['staking'],
+}
+
 const MenuButton: React.FC<MenuButtomProps> = ({ opened, onClick }) => {
   return (
     <button className={classnames('m-menu', { opened })} onClick={onClick}>
@@ -79,22 +84,56 @@ const Welcome: React.FC = () => {
         <li>
           <a
             className={classnames({
-              active: currentPage.menuActive === 'whoweare',
+              active: menuL1Map.about.includes(currentPage.menuActive ?? ''),
             })}
-            onClick={() => changePage(Pages.whoweare)}
           >
-            Who We Are
+            <span>About</span>
+            <i className="iconfont icon-arrow"></i>
           </a>
+          <ul>
+            <li>
+              <a
+                className={classnames({
+                  active: currentPage.menuActive === 'whoweare',
+                })}
+                onClick={() => changePage(Pages.whoweare)}
+              >
+                <span>Who We Are</span>
+              </a>
+            </li>
+            <li>
+              <a
+                className={classnames({
+                  active: currentPage.menuActive === 'whatwedo',
+                })}
+                onClick={() => changePage(Pages.whatwedo)}
+              >
+                <span>What We Do</span>
+              </a>
+            </li>
+          </ul>
         </li>
         <li>
           <a
             className={classnames({
-              active: currentPage.menuActive === 'whatwedo',
+              active: menuL1Map.stake.includes(currentPage.menuActive ?? ''),
             })}
-            onClick={() => changePage(Pages.whatwedo)}
           >
-            What We Do
+            <span>Stake</span>
+            <i className="iconfont icon-arrow"></i>
           </a>
+          <ul>
+            <li>
+              <a
+                className={classnames({
+                  active: currentPage.menuActive === 'staking',
+                })}
+                onClick={() => changePage(Pages.staking)}
+              >
+                <span>{'Staking & Node Infrastructure'}</span>
+              </a>
+            </li>
+          </ul>
         </li>
       </ul>
       <MenuButton

@@ -1,0 +1,35 @@
+.whoweare-content {
+  text-align: center;
+
+  .text {
+    width: 100%;
+    text-shadow: 0 0 8px #1a1919;
+  }
+
+  .h1 {
+    font-size: 16px;
+  }
+  .h2 {
+    font-size: 24px;
+  }
+}
+
+.whatwedo-content {
+  padding-top: 40px;
+
+  .dos {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 20px;
+    row-gap: 36px;
+    font-size: 14px;
+    text-shadow: 0 0 8px #1a1919;
+
+    .icon {
+      margin-bottom: 12px;
+
+      .iconfont {
+        font-size: 50px;
+      }
+    }
+  }
+}

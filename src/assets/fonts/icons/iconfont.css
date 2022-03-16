@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 3231449 */
-  src: url('iconfont.woff2?t=1646762889045') format('woff2'),
-       url('iconfont.woff?t=1646762889045') format('woff'),
-       url('iconfont.ttf?t=1646762889045') format('truetype');
+  src: url('iconfont.woff2?t=1647448676248') format('woff2'),
+       url('iconfont.woff?t=1647448676248') format('woff'),
+       url('iconfont.ttf?t=1647448676248') format('truetype');
 }
 
 .iconfont {
@@ -31,5 +31,9 @@
 
 .icon-asset:before {
   content: "\e69e";
+}
+
+.icon-arrow:before {
+  content: "\e610";
 }
 
