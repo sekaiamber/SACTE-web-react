@@ -393,7 +393,7 @@ export default class App {
         formattedAlpha(
           this.moveCameraTargetTime - time,
           MOVECAMERA_TIMESPIN,
-          0.01
+          0.04
         )
       this.moveCameraRealVector3.lerpVectors(
         this.moveCameraStartVector3,
@@ -420,7 +420,7 @@ export default class App {
             formattedAlpha(
               this.autoLookAtTargetTime - time,
               AUTOLOOKAT_TIMESPIN,
-              0.01
+              0.04
             )
           const ca = this.camera.clone()
           ca.lookAt(this.autoLookAtVector3)
@@ -444,7 +444,7 @@ export default class App {
           formattedAlpha(
             this.autoLookAtTargetTime - time,
             AUTOLOOKAT_TIMESPIN,
-            0.01
+            0.04
           )
         this.camera.quaternion.slerpQuaternions(
           this.autoLookAtEaseQuaternions[0],
@@ -463,7 +463,7 @@ export default class App {
       let alpha = formattedAlpha(
         this.flatRoadTargetTime - time,
         FLATROAD_TIMESPIN,
-        0.01
+        0.04
       )
       if (!this.isFlatRoad) {
         // 1 -> 0

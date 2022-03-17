@@ -48,6 +48,7 @@
         display: block;
         position: static;
         padding: 10px 0;
+        background-color: transparent;
 
         li {
           font-size: 16px;
@@ -95,8 +96,9 @@ footer {
 
 #sidebar {
   right: auto;
-  left: 50%;
-  transform: translate(-50%, 0);
+  left: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
 
   .h1 {
     font-size: 60px;

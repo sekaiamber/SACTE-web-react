@@ -37,3 +37,6 @@
   content: "\e610";
 }
 
+.icon-checked:before {
+  content: "\e6ab";
+}

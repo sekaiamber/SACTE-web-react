@@ -98,8 +98,14 @@ const commonPages: IPages = {
     animeState: {
       flatRoad: true,
       camera: {
-        autoLookAt: true,
-        position: new THREE.Vector3(0, 8, -5),
+        autoLookAt: false,
+        position: new THREE.Vector3(0, 1, -32),
+        lookAtQuaternion: new THREE.Quaternion(
+          0.35045594358174986,
+          -0.023990105769047563,
+          0.008980149603183891,
+          0.9362288520156382
+        ),
       },
     },
   },
@@ -151,10 +157,16 @@ const mobilePages: IPages = {
     ...contentPage,
     menuActive: PageKey.staking,
     animeState: {
-      flatRoad: false,
+      flatRoad: true,
       camera: {
-        autoLookAt: true,
-        position: new THREE.Vector3(0, 8, -5),
+        autoLookAt: false,
+        position: new THREE.Vector3(0, 1, -32),
+        lookAtQuaternion: new THREE.Quaternion(
+          0.35045594358174986,
+          -0.023990105769047563,
+          0.008980149603183891,
+          0.9362288520156382
+        ),
       },
     },
   },

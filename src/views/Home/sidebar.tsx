@@ -8,10 +8,10 @@ const Sidebar: React.FC = () => {
   return (
     <nav id="sidebar" className={classnames({ exp: currentPage.headerExp })}>
       {currentPage.menuActive && (
-        <>
+        <div className="page-tag">
           <div className="h1">{PageNum[currentPage.menuActive]}</div>
           <div className="h2">{PageName[currentPage.menuActive]}</div>
-        </>
+        </div>
       )}
     </nav>
   )
