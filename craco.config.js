@@ -16,7 +16,7 @@ module.exports = {
           TerserPlugin.options.terserOptions.compress.drop_console = true
         }
         // public path
-        // webpackConfig.output.publicPath = '//assets.zjzsxhy.com/ld/'
+        // webpackConfig.output.publicPath = '//assets.zjzsxhy.com/sacte/'
       }
 
       return webpackConfig
@@ -28,43 +28,6 @@ module.exports = {
         target: 'https://stoneblock.internal.nervina.cn/',
         changeOrigin: true,
         secure: false,
-      },
-      '/users/*': {
-        target: 'https://stoneblock.internal.nervina.cn/',
-        changeOrigin: true,
-        secure: false,
-      },
-      '/users.json': {
-        target: 'https://stoneblock.internal.nervina.cn/',
-        changeOrigin: true,
-        secure: false,
-      },
-      '/tickets.json': {
-        target: 'https://stoneblock.internal.nervina.cn/',
-        changeOrigin: true,
-        secure: false,
-      },
-      '/tickets/*': {
-        target: 'https://stoneblock.internal.nervina.cn/',
-        changeOrigin: true,
-        secure: false,
-      },
-      '/info.json': {
-        target: 'https://stoneblock.internal.nervina.cn/',
-        changeOrigin: true,
-        secure: false,
-      },
-      '/cable': {
-        target: 'wss://stoneblock.internal.nervina.cn/',
-        changeOrigin: true,
-        secure: false,
-        ws: true,
-      },
-      '/static_proxy': {
-        target: 'http://localhost:8080',
-        changeOrigin: true,
-        secure: false,
-        pathRewrite: { '^/static_proxy': '' },
       },
     },
   },

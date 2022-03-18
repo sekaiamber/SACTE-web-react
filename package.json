@@ -12,7 +12,7 @@
     "start": "serve -s build",
     "lint": "eslint src",
     "static_proxy": "http-server ./staticProxy",
-    "cdn": "scp -r build/* deploy@39.98.92.83:~/public/ld/"
+    "cdn": "scp -r build/* deploy@39.98.92.83:~/public/sacte/ && scp build/index.html deploy@47.243.87.89:~/sacte"
   },
   "dependencies": {
     "@lay2/pw-core": "0.4.0-alpha.8",
