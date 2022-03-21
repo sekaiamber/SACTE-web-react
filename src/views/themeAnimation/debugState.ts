@@ -4,7 +4,7 @@ import App, { AppOptions } from './app'
 import ThreeDebug from '../../store/threeDebug'
 
 export default function useDebugState(
-  app: React.MutableRefObject<App | null>,
+  app: App | null,
   initOptions: AppOptions
 ): void {
   const debugState = ThreeDebug.useContainer()
@@ -15,8 +15,8 @@ export default function useDebugState(
 
   const backgroundColor = useDebugColor('colors', 'background', '#000000')
   useEffect(() => {
-    if (app.current) {
-      app.current.attributeSetter.setBackgroundColor(backgroundColor)
+    if (app) {
+      app.attributeSetter.setBackgroundColor(backgroundColor)
     }
   }, [backgroundColor])
 
@@ -26,8 +26,8 @@ export default function useDebugState(
     initOptions.colors.roadColor as string
   )
   useEffect(() => {
-    if (app.current) {
-      app.current.attributeSetter.setRoadColor(roadColor)
+    if (app) {
+      app.attributeSetter.setRoadColor(roadColor)
     }
   }, [roadColor])
 
@@ -37,8 +37,8 @@ export default function useDebugState(
     initOptions.colors.islandColor as string
   )
   useEffect(() => {
-    if (app.current) {
-      app.current.attributeSetter.setIslandColor(islandColor)
+    if (app) {
+      app.attributeSetter.setIslandColor(islandColor)
     }
   }, [islandColor])
 
@@ -48,8 +48,8 @@ export default function useDebugState(
   //   initOptions.colors.shoulderLines as string
   // )
   // useEffect(() => {
-  //   if (app.current) {
-  //     app.current.attributeSetter.setShoulderLinesColor(shoulderLinesColor)
+  //   if (app) {
+  //     app.attributeSetter.setShoulderLinesColor(shoulderLinesColor)
   //   }
   // }, [shoulderLinesColor])
 
@@ -59,8 +59,8 @@ export default function useDebugState(
     initOptions.colors.shoulderLines as string
   )
   useEffect(() => {
-    if (app.current) {
-      app.current.attributeSetter.setBrokenLines(brokenLines)
+    if (app) {
+      app.attributeSetter.setBrokenLines(brokenLines)
     }
   }, [brokenLines])
 
@@ -73,10 +73,10 @@ export default function useDebugState(
     return ret
   }, [])
   useEffect(() => {
-    if (app.current) {
-      app.current.scene.add(helper)
+    if (app) {
+      app.scene.add(helper)
     }
-  }, [app.current])
+  }, [app])
   useEffect(() => {
     helper.visible = gridHelperVisible
   }, [gridHelperVisible])
@@ -85,17 +85,17 @@ export default function useDebugState(
   const cameraY = useDebugNumber('env/camera', 'position y', 8, -60, 60, 1)
   const cameraZ = useDebugNumber('env/camera', 'position z', -5, -60, 60, 1)
   useEffect(() => {
-    if (app.current) {
-      app.current.camera.position.setX(cameraX)
-      app.current.camera.position.setY(cameraY)
-      app.current.camera.position.setZ(cameraZ)
+    if (app) {
+      app.camera.position.setX(cameraX)
+      app.camera.position.setY(cameraY)
+      app.camera.position.setZ(cameraZ)
     }
   }, [cameraX, cameraY, cameraZ])
 
   const autoLookAt = useDebugBoolean('env/camera', 'auto look at', true)
   useEffect(() => {
-    if (app.current) {
-      app.current.cameraAutoLookAt(autoLookAt)
+    if (app) {
+      app.cameraAutoLookAt(autoLookAt)
     }
   }, [autoLookAt])
 
@@ -103,17 +103,15 @@ export default function useDebugState(
   const cameraRY = useDebugNumber('env/camera', 'look y', 0, -5, 5, 0.001)
   const cameraRZ = useDebugNumber('env/camera', 'look z', 0, -1, 1, 0.001)
   useEffect(() => {
-    if (app.current) {
-      app.current.cameraManualLookAt(
-        new THREE.Vector3(cameraRX, cameraRY, cameraRZ)
-      )
+    if (app) {
+      app.cameraManualLookAt(new THREE.Vector3(cameraRX, cameraRY, cameraRZ))
     }
   }, [cameraRX, cameraRY, cameraRZ])
 
   const flatRoad = useDebugBoolean('model/road', 'flat', false)
   useEffect(() => {
-    if (app.current) {
-      app.current.flatRoad(flatRoad)
+    if (app) {
+      app.flatRoad(flatRoad)
     }
   }, [flatRoad])
 }

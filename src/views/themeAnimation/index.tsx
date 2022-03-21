@@ -75,6 +75,8 @@ const defaultOptions: AppOptions = {
   },
 }
 
+let app: App
+
 const ThemeAnimation: React.FC = () => {
   const debugState = ThreeDebug.useContainer()
   const { currentPage } = Sysrem.useContainer()
@@ -82,7 +84,6 @@ const ThemeAnimation: React.FC = () => {
   const { debug } = debugState
 
   const canvas = useRef<HTMLCanvasElement>(null)
-  const app = useRef<App | null>(null)
 
   useDebugState(app, defaultOptions)
 
@@ -90,27 +91,27 @@ const ThemeAnimation: React.FC = () => {
     const container = document.getElementById('root')
     const $canvas = document.getElementById(defaultOptions.id)
     if (container && !$canvas) {
-      app.current = new App(container, defaultOptions)
-      ;(window as any).app = app.current
-      app.current
+      app = new App(container, defaultOptions)
+      ;(window as any).app = app
+      app
         .loadAssets()
-        .then(app.current.init)
-        .catch(() => app.current?.dispose())
+        .then(app.init)
+        .catch(() => app.dispose())
     }
-  }, [canvas.current])
+  }, [canvas])
 
   useEffect(() => {
     const { animeState, animeShow } = currentPage
-    if (app.current) {
+    if (app) {
       if (animeState) {
-        app.current.flatRoad(animeState.flatRoad)
-        app.current.cameraAutoLookAt(
+        app.flatRoad(animeState.flatRoad)
+        app.cameraAutoLookAt(
           animeState.camera.autoLookAt,
           animeState.camera.lookAtQuaternion
         )
-        app.current.moveCameraPosition(animeState.camera.position)
+        app.moveCameraPosition(animeState.camera.position)
       }
-      app.current.visible(animeShow)
+      app.visible(animeShow)
     }
   }, [currentPage])
 
