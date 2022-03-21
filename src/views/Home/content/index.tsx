@@ -1,7 +1,9 @@
 import React from 'react'
 import WhoweareContent from './whoweare'
 import WhatwedoContent from './whatwedo'
-import StakingContent from './staking'
+// import StakingContent from './staking'
+import ProtocolContent from './staking'
+import ProtocolListContent from './staking/list'
 import './style.scss'
 
 const Content: React.FC = () => {
@@ -9,7 +11,9 @@ const Content: React.FC = () => {
     <>
       <WhoweareContent />
       <WhatwedoContent />
-      <StakingContent />
+      {/* <StakingContent /> */}
+      <ProtocolContent />
+      <ProtocolListContent />
     </>
   )
 }

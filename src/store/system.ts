@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import * as THREE from 'three'
+import { useLocation } from 'react-router'
 import { createContainer } from './unstatedNextPro'
 
 const isMobile = window.innerWidth < 540
@@ -8,18 +9,24 @@ export enum PageKey {
   whoweare = 'whoweare',
   whatwedo = 'whatwedo',
   staking = 'staking',
+  protocols = 'protocols',
+  protocol = 'protocol',
 }
 
 export const PageNum = {
   whoweare: '01',
   whatwedo: '02',
   staking: '01',
+  protocols: '',
+  protocol: '',
 }
 
 export const PageName = {
   whoweare: 'Who We Are',
   whatwedo: 'What We Do',
   staking: 'Staking',
+  protocols: '',
+  protocol: '',
 }
 
 interface AnimeState {
@@ -35,7 +42,8 @@ export interface PageInfo {
   headerExp: boolean
   footerShow: boolean
   menuActive: null | PageKey
-  animeState: AnimeState
+  animeShow: boolean
+  animeState: AnimeState | null
 }
 
 interface IPages {
@@ -43,11 +51,14 @@ interface IPages {
   whoweare: PageInfo
   whatwedo: PageInfo
   staking: PageInfo
+  protocols: PageInfo
+  protocol: PageInfo
 }
 
-const contentPage: Pick<PageInfo, 'headerExp' | 'footerShow'> = {
+const contentPage: Pick<PageInfo, 'headerExp' | 'footerShow' | 'animeShow'> = {
   headerExp: true,
   footerShow: true,
+  animeShow: true,
 }
 
 const commonPages: IPages = {
@@ -55,6 +66,7 @@ const commonPages: IPages = {
     headerExp: false,
     footerShow: false,
     menuActive: null,
+    animeShow: true,
     animeState: {
       flatRoad: false,
       camera: {
@@ -109,6 +121,20 @@ const commonPages: IPages = {
       },
     },
   },
+  protocols: {
+    headerExp: true,
+    footerShow: false,
+    menuActive: PageKey.protocols,
+    animeShow: false,
+    animeState: null,
+  },
+  protocol: {
+    headerExp: true,
+    footerShow: false,
+    menuActive: PageKey.protocol,
+    animeShow: false,
+    animeState: null,
+  },
 }
 
 const mobilePages: IPages = {
@@ -116,6 +142,7 @@ const mobilePages: IPages = {
     headerExp: false,
     footerShow: false,
     menuActive: null,
+    animeShow: true,
     animeState: {
       flatRoad: false,
       camera: {
@@ -170,6 +197,20 @@ const mobilePages: IPages = {
       },
     },
   },
+  protocols: {
+    headerExp: true,
+    footerShow: false,
+    menuActive: PageKey.protocols,
+    animeShow: false,
+    animeState: null,
+  },
+  protocol: {
+    headerExp: true,
+    footerShow: false,
+    menuActive: PageKey.protocol,
+    animeShow: false,
+    animeState: null,
+  },
 }
 
 const Pages = isMobile ? mobilePages : commonPages
@@ -183,6 +224,25 @@ export interface useSystemProps {
 
 function useSystem(): useSystemProps {
   const [currentPage, setCurrentPage] = useState(Pages.welcome)
+
+  const location = useLocation()
+
+  useEffect(() => {
+    const { pathname } = location
+    if (pathname === '/') {
+      setCurrentPage(Pages.welcome)
+    } else if (pathname === `/${PageKey.whoweare}`) {
+      setCurrentPage(Pages.whoweare)
+    } else if (pathname === `/${PageKey.whatwedo}`) {
+      setCurrentPage(Pages.whatwedo)
+    } else if (pathname === `/${PageKey.staking}`) {
+      setCurrentPage(Pages.staking)
+    } else if (pathname === `/${PageKey.protocols}`) {
+      setCurrentPage(Pages.protocols)
+    } else if (pathname.startsWith(`/${PageKey.protocol}/`)) {
+      setCurrentPage(Pages.protocol)
+    }
+  }, [location])
 
   return {
     currentPage,

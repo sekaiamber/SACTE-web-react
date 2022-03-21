@@ -1,0 +1,65 @@
+.protocols-content {
+  .content {
+    width: 100%;
+    padding: 40px 0;
+  }
+  .h1 {
+    font-size: 24px;
+  }
+
+  .mainnet-list {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    grid-column-gap: 16px;
+    grid-row-gap: 24px;
+    margin-bottom: 24px;
+  }
+
+  .notmainnet-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-column-gap: 16px;
+    grid-row-gap: 24px;
+  }
+}
+
+.common-content.protocol-content {
+  .content {
+    width: 100%;
+    padding: 40px 0;
+  }
+  .h1 {
+    font-size: 24px;
+  }
+
+  .info {
+    font-size: 14px;
+  }
+
+  .guide,
+  .guide-steps {
+    font-size: 16px;
+    width: auto;
+  }
+  .guide-steps {
+    padding-left: 30px;
+  }
+
+  .faqs {
+    font-size: 14px;
+    width: auto;
+  }
+
+  .resources {
+    display: block;
+
+    .resource {
+      border: none;
+      border-bottom: rgba($color: #fff, $alpha: 0.3) solid 1px;
+      margin-bottom: 24px;
+
+      &:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+      }
+    }
+  }
+}

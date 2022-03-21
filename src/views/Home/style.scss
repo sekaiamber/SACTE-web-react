@@ -90,6 +90,10 @@ $transitionContent: all ease 0.6s;
         border: none;
         background-color: transparent;
         color: #fff;
+
+        a {
+          color: #fff;
+        }
         
         &:hover {
           text-decoration: underline;
@@ -134,7 +138,9 @@ $transitionContent: all ease 0.6s;
       }
 
       a {
+        color: #fff;
         cursor: pointer;
+        text-decoration: none;
 
         &.active,
         &:hover {
@@ -142,6 +148,10 @@ $transitionContent: all ease 0.6s;
             text-decoration: underline;
           }
         }
+      }
+
+      .active a {
+        text-decoration: underline;
       }
 
       ul {
@@ -301,6 +311,7 @@ $transitionContent: all ease 0.6s;
   top: 0;
   color: #fff;
   pointer-events: none;
+  z-index: 2;
 
   // scrollbar
   .ScrollbarsCustom-Track {

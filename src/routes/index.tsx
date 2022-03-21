@@ -8,6 +8,7 @@ import {
 } from 'react-router-dom'
 import { I18nextProvider } from 'react-i18next'
 import i18n from '../i18n'
+import Store from '../store'
 import { Home } from '../views/Home'
 
 export enum RoutePath {
@@ -59,29 +60,23 @@ const routes: MibaoRouterProps[] = [
   },
 ]
 
-export enum ProfilePath {
-  Regions = '/profile/regions',
-  Provinces = '/profile/regions/provinces',
-  Cities = '/profile/regions/cities',
-  Username = '/profile/username',
-  Description = '/profile/description',
-  Birthday = '/profile/birthday',
-}
-
 export const Routers: React.FC = () => {
   return (
     <I18nextProvider i18n={i18n}>
       <Router>
         <RouterProvider>
-          <Switch>
-            {routes.map((route) => (
-              <Route
-                {...route}
-                key={route.key}
-                path={`${route.path}${route.params ?? ''}`}
-              />
-            ))}
-          </Switch>
+          <Store>
+            <Switch>
+              {routes.map((route) => (
+                <Route
+                  {...route}
+                  key={route.key}
+                  path={`${route.path}${route.params ?? ''}`}
+                />
+              ))}
+            </Switch>
+            <Home />
+          </Store>
         </RouterProvider>
       </Router>
     </I18nextProvider>

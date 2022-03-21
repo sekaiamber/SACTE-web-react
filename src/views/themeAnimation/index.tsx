@@ -5,6 +5,7 @@ import Sysrem from '../../store/system'
 import App, { AppOptions } from './app'
 import { mountainDistortion } from './app/distortions'
 import useDebugState from './debugState'
+import './style.scss'
 
 // const Loader: React.FC = () => {
 //   const { progress } = useProgress()
@@ -16,6 +17,7 @@ import useDebugState from './debugState'
 // }
 
 const defaultOptions: AppOptions = {
+  id: 'backgroundAnime',
   onSpeedUp: () => {},
   onSlowDown: () => {},
   // mountainDistortion || LongRaceDistortion || xyDistortion || turbulentDistortion || turbulentDistortionStill || deepDistortionStill || deepDistortion
@@ -62,9 +64,9 @@ const defaultOptions: AppOptions = {
   carFloorSeparation: [0.05, 1],
 
   colors: {
+    background: '#0e0f14',
     roadColor: '#1c1c1d',
     islandColor: '#0a0a0a',
-    background: '#0e0f14',
     shoulderLines: '#131318',
     brokenLines: '#47484e',
     leftCars: ['#ff102a', '#eb383e', '#ff102a'],
@@ -86,7 +88,8 @@ const ThemeAnimation: React.FC = () => {
 
   useEffect(() => {
     const container = document.getElementById('root')
-    if (container) {
+    const $canvas = document.getElementById(defaultOptions.id)
+    if (container && !$canvas) {
       app.current = new App(container, defaultOptions)
       ;(window as any).app = app.current
       app.current
@@ -97,14 +100,17 @@ const ThemeAnimation: React.FC = () => {
   }, [canvas.current])
 
   useEffect(() => {
-    const { animeState } = currentPage
+    const { animeState, animeShow } = currentPage
     if (app.current) {
-      app.current.flatRoad(animeState.flatRoad)
-      app.current.cameraAutoLookAt(
-        animeState.camera.autoLookAt,
-        animeState.camera.lookAtQuaternion
-      )
-      app.current.moveCameraPosition(animeState.camera.position)
+      if (animeState) {
+        app.current.flatRoad(animeState.flatRoad)
+        app.current.cameraAutoLookAt(
+          animeState.camera.autoLookAt,
+          animeState.camera.lookAtQuaternion
+        )
+        app.current.moveCameraPosition(animeState.camera.position)
+      }
+      app.current.visible(animeShow)
     }
   }, [currentPage])
 

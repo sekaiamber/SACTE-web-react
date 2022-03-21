@@ -1,6 +1,6 @@
 import React from 'react'
-import System from '../../../store/system'
-import { CommonContentChild } from './base'
+import System from '../../../../store/system'
+import { CommonContentChild } from '../base'
 import infrastructureImg from '../../../assets/img/infrastructure-diagram.svg'
 
 const T1 = "The World's Most Secure Blockchain Infrastructure"

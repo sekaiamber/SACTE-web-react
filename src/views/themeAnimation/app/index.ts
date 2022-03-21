@@ -23,6 +23,8 @@ const FLATROAD_TIMESPIN = 0.6
 const MOVECAMERA_TIMESPIN = 0.6
 
 export interface AppOptions {
+  id: string
+
   onSpeedUp: (ev: MouseEvent) => void
   onSlowDown: (ev: MouseEvent) => void
   distortion: Distortion
@@ -121,6 +123,7 @@ const defaultDistortion: Distortion = {
 
 export default class App {
   options: AppOptions
+  private readonly $group: HTMLElement
   private readonly container: HTMLElement
   private readonly renderer: THREE.WebGLRenderer
   readonly camera: THREE.PerspectiveCamera
@@ -201,9 +204,15 @@ export default class App {
     })
     this.renderer.setSize(container.offsetWidth, container.offsetHeight, false)
     this.renderer.setPixelRatio(window.devicePixelRatio)
-    this.renderer.domElement.id = 'backgroundAnime'
+    this.renderer.domElement.id = options.id
     this.composer = new EffectComposer(this.renderer)
-    container.append(this.renderer.domElement)
+
+    // doms
+    const $group = document.createElement('div')
+    $group.classList.add('anime-container')
+    $group.append(this.renderer.domElement)
+    container.append($group)
+    this.$group = $group
 
     this.camera = new THREE.PerspectiveCamera(
       options.fov,
@@ -218,6 +227,8 @@ export default class App {
     // this.camera.rotateX(-0.4);
     this.scene = new THREE.Scene()
     this.scene.background = new THREE.Color(options.colors.background)
+    // set body
+    document.body.style.backgroundColor = options.colors.background as string
 
     const fog = new THREE.Fog(
       options.colors.background,
@@ -590,6 +601,14 @@ export default class App {
       // on
       this.isFlatRoad = isFlatRoad
       this.flatRoadTargetTime = this.clock.elapsedTime + FLATROAD_TIMESPIN
+    }
+  }
+
+  visible(visible: boolean): void {
+    if (visible) {
+      this.$group.classList.remove('hide')
+    } else {
+      this.$group.classList.add('hide')
     }
   }
 }

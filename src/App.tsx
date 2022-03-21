@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react'
 import { QueryClientProvider, QueryClient } from 'react-query'
-import Store from './store'
 import { Routers } from './routes'
 
 const App: React.FC = () => {
@@ -9,9 +8,7 @@ const App: React.FC = () => {
   }, [])
   return (
     <QueryClientProvider client={queryClient}>
-      <Store>
-        <Routers />
-      </Store>
+      <Routers />
     </QueryClientProvider>
   )
 }

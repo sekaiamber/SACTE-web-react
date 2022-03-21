@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react'
 import classnames from 'classnames'
-import System, { PageInfo, Pages } from '../../store/system'
+import { Link } from 'react-router-dom'
+import System, { PageKey } from '../../store/system'
 
 interface MenuButtomProps {
   opened: boolean
@@ -51,15 +52,11 @@ const Logo: React.FC<{ onClick: () => void }> = ({ onClick }) => {
 
 const Welcome: React.FC = () => {
   const [menuOpened, setMenuOpen] = useState(false)
-  const { currentPage, setCurrentPage } = System.useContainer()
+  const { currentPage } = System.useContainer()
 
-  const changePage = useCallback(
-    (page: PageInfo) => {
-      setMenuOpen(false)
-      setCurrentPage(page)
-    },
-    [setCurrentPage, setMenuOpen]
-  )
+  const changePage = useCallback(() => {
+    setMenuOpen(false)
+  }, [setMenuOpen])
 
   return (
     <header
@@ -74,10 +71,14 @@ const Welcome: React.FC = () => {
       <div className="logo">
         <div className="h2">Blockchain Institution</div>
         <div className="h1">
-          <Logo onClick={() => changePage(Pages.welcome)} />
+          <Link to="/">
+            <Logo onClick={() => changePage()} />
+          </Link>
         </div>
         <div className="exp">
-          <button onClick={() => changePage(Pages.whoweare)}>Explore→</button>
+          <button onClick={() => changePage()}>
+            <Link to={`/${PageKey.whoweare}`}>Explore→</Link>
+          </button>
         </div>
       </div>
       <ul className="menu">
@@ -96,9 +97,9 @@ const Welcome: React.FC = () => {
                 className={classnames({
                   active: currentPage.menuActive === 'whoweare',
                 })}
-                onClick={() => changePage(Pages.whoweare)}
+                onClick={() => changePage()}
               >
-                <span>Who We Are</span>
+                <Link to={`/${PageKey.whoweare}`}>Who We Are</Link>
               </a>
             </li>
             <li>
@@ -106,9 +107,9 @@ const Welcome: React.FC = () => {
                 className={classnames({
                   active: currentPage.menuActive === 'whatwedo',
                 })}
-                onClick={() => changePage(Pages.whatwedo)}
+                onClick={() => changePage()}
               >
-                <span>What We Do</span>
+                <Link to={`/${PageKey.whatwedo}`}>What We Do</Link>
               </a>
             </li>
           </ul>
@@ -119,21 +120,11 @@ const Welcome: React.FC = () => {
               active: menuL1Map.stake.includes(currentPage.menuActive ?? ''),
             })}
           >
-            <span>Stake</span>
+            <Link to={`/${PageKey.protocols}`} onClick={() => changePage()}>
+              Stake
+            </Link>
             <i className="iconfont icon-arrow"></i>
           </a>
-          <ul>
-            <li>
-              <a
-                className={classnames({
-                  active: currentPage.menuActive === 'staking',
-                })}
-                onClick={() => changePage(Pages.staking)}
-              >
-                <span>{'Staking & Node Infrastructure'}</span>
-              </a>
-            </li>
-          </ul>
         </li>
       </ul>
       <MenuButton
