@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-// import classNames from 'classnames'
+import classnames from 'classnames'
 import System from '../../../../store/system'
 import { CommonContentChild } from '../base'
 import Protocols from './protocols'
@@ -8,7 +8,11 @@ import Protocol, { ProtocolState } from './protocols/types'
 
 const ProtocolItem: React.FC<{ data: Protocol }> = ({ data }) => {
   return (
-    <div className="item">
+    <div
+      className={classnames('item', {
+        mainnet: data.state === ProtocolState.mainnet,
+      })}
+    >
       <div className="img">
         <img src={data.info.logoSmall} alt="" />
       </div>
@@ -47,12 +51,15 @@ const ProtocolContent: React.FC = () => {
         {MainnetProtocols.map((p) => (
           <ProtocolItem data={p} key={p.key} />
         ))}
-      </div>
-      <div className="notmainnet-list">
         {NotMainnetProtocols.map((p) => (
           <ProtocolItem data={p} key={p.key} />
         ))}
       </div>
+      {/* <div className="notmainnet-list">
+        {NotMainnetProtocols.map((p) => (
+          <ProtocolItem data={p} key={p.key} />
+        ))}
+      </div> */}
     </CommonContentChild>
   )
 }

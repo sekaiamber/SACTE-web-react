@@ -31,14 +31,6 @@
         height: 100px;
         width: 100px;
       }
-
-      .more button {
-        background-color: #ff102a;
-
-        &:hover {
-          box-shadow: 0 0 8px 2px rgba($color: #ff102a, $alpha: 0.7);
-        }
-      }
     }
   }
 
@@ -87,6 +79,14 @@
         &:hover {
           border: #ff102a solid 1px;
         }
+      }
+    }
+
+    &.mainnet .more button {
+      background-color: #ff102a;
+
+      &:hover {
+        box-shadow: 0 0 8px 2px rgba($color: #ff102a, $alpha: 0.7);
       }
     }
   }
