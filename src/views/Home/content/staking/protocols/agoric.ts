@@ -35,7 +35,7 @@ const AgoricProtocol: Protocol = {
     description: guideDescription,
     steps: [
       'Head to [https://wallet.keplr.app/#/agoric/stake](https://wallet.keplr.app/#/agoric/stake)',
-      'Find Figment in the Agoric validator set and click the “manage” button.',
+      'Find **“blackpaopao”** in the Agoric validator set and click the “manage” button.',
       'Click “delegate”.',
       'Enter the amount you want to delegate. Remember to keep some BLD available to pay for transaction fees.',
       'Click “delegate” and then click “approve” to approve the transaction.',
@@ -44,35 +44,28 @@ const AgoricProtocol: Protocol = {
   },
   faq: [
     {
-      question: 'Where can I explore the network and create a Mina wallet?',
-      answer: `Block explorer: [hubble.figment.io/mina/chains/mainnet](https://hubble.figment.io/mina/chains/mainnet)
+      question: 'How long does it take to unstake?',
+      answer: `**In short: 21 days**
 
-Web Wallet: [clor.io](https://clor.io/)`,
-    },
-    {
-      question: 'What is the name of the asset being staked?',
-      answer:
-        "Minas' native token, MINA, is used to stake and to participate in on-chain governance.",
+From the moment you initiate the unbonding process, it takes 21 days to unstake. During this time you will not earn rewards. When the process is complete, you can transfer/trade your BLD tokens.`,
     },
   ],
   resources: [
     {
-      title: 'Agoric: First Look',
+      title: 'Agoric Official Site',
       introduction:
-        'Agoric is an ease-of-use Layer 1 protocol that focuses on composability in a Javascript working environment.',
-      link: 'https://www.figment.io/resources/agoric-first-look',
+        'Agoric is A Proof-of-Stake chain utilizing secure JavaScript smart contracts to rapidly build and deploy DeFi.',
+      link: 'https://agoric.com/',
     },
     {
-      title: 'Staking Hub: Agoric',
-      introduction:
-        'Agoric is a smart contract platform built to bring millions of developers to the DeFi frontier. We hosted an AMA with the team to learn more.',
-      link: 'https://www.figment.io/resources/agoric-first-look',
+      title: 'Agoric Documentation',
+      introduction: 'Documentation from Agoric official site.',
+      link: 'https://agoric.com/documentation/',
     },
     {
-      title: 'Agoric: Staking Guide',
-      introduction:
-        'Follow our guide for staking Agoric (BLD) tokens on the Keplr wallet. ',
-      link: 'https://www.figment.io/resources/agoric-first-look',
+      title: 'Agoric Discord',
+      introduction: 'Discord channel of Agoric.',
+      link: 'https://agoric.com/discord',
     },
   ],
 }
