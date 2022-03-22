@@ -16,7 +16,7 @@ module.exports = {
           TerserPlugin.options.terserOptions.compress.drop_console = true
         }
         // public path
-        webpackConfig.output.publicPath = '//assets.zjzsxhy.com/sacte/'
+        // webpackConfig.output.publicPath = '//assets.zjzsxhy.com/sacte/'
       }
 
       return webpackConfig
