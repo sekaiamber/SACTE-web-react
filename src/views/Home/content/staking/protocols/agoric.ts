@@ -35,10 +35,19 @@ const AgoricProtocol: Protocol = {
     description: guideDescription,
     steps: [
       'Head to [https://wallet.keplr.app/#/agoric/stake](https://wallet.keplr.app/#/agoric/stake)',
-      'Find **"SACTE"** in the Agoric validator set and click the "manage" button.',
-      'Click "delegate".',
-      'Enter the amount you want to delegate. Remember to keep some BLD available to pay for transaction fees.',
-      'Click "delegate" and then click "approve" to approve the transaction.',
+      `Find **"SACTE"** in the Agoric validator set and click the "manage" button.
+
+![](https://assets.zjzsxhy.com/upload/e1166779-9f42-47a2-8184-6ef15734ceba.jpg)
+`,
+      `Click "Delegate".
+
+![](https://assets.zjzsxhy.com/upload/72582e97-0a4e-4b79-aa18-7054bb800f28.jpg)
+`,
+      `Enter the amount you want to delegate. Remember to keep some BLD available to pay for transaction fees.
+
+![](https://assets.zjzsxhy.com/upload/cf8c3e1d-91af-4154-bda4-50143f731979.jpg)
+`,
+      'Click "Delegate" and then click "Approve" to approve the transaction.',
     ],
     validators: [],
   },
