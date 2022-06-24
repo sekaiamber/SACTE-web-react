@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import * as THREE from 'three'
 import { useLocation } from 'react-router'
 import { createContainer } from './unstatedNextPro'
@@ -38,12 +38,24 @@ interface AnimeState {
   }
 }
 
+export interface PageColor {
+  background: string
+  roadColor: string
+  islandColor: string
+  shoulderLines: string
+  brokenLines: string
+  leftCars: string[]
+  rightCars: string[]
+  sticks: string
+}
+
 export interface PageInfo {
   headerExp: boolean
   footerShow: boolean
   menuActive: null | PageKey
   animeShow: boolean
   animeState: AnimeState | null
+  animeColor?: PageColor
 }
 
 interface IPages {
@@ -61,6 +73,28 @@ const contentPage: Pick<PageInfo, 'headerExp' | 'footerShow' | 'animeShow'> = {
   animeShow: true,
 }
 
+const color1: PageColor = {
+  background: '#0e0f14',
+  roadColor: '#1c1c1d',
+  islandColor: '#0a0a0a',
+  shoulderLines: '#131318',
+  brokenLines: '#47484e',
+  leftCars: ['#ff102a', '#eb383e', '#ff102a'],
+  rightCars: ['#dadafa', '#bebae3', '#8f97e4'],
+  sticks: '#dadafa',
+}
+
+const color2: PageColor = {
+  background: '#0e0f14',
+  roadColor: '#1c1c1d',
+  islandColor: '#0a0a0a',
+  shoulderLines: '#275f3c',
+  brokenLines: '#275f3c',
+  leftCars: ['#12db5b', '#12db5b', '#12db5b'],
+  rightCars: ['#12db5b', '#12db5b', '#12db5b'],
+  sticks: '#275f3c',
+}
+
 const commonPages: IPages = {
   welcome: {
     headerExp: false,
@@ -74,6 +108,7 @@ const commonPages: IPages = {
         position: new THREE.Vector3(0, 8, -5),
       },
     },
+    animeColor: color1,
   },
   whoweare: {
     ...contentPage,
@@ -91,6 +126,7 @@ const commonPages: IPages = {
         ),
       },
     },
+    animeColor: color2,
   },
   whatwedo: {
     ...contentPage,
@@ -103,6 +139,7 @@ const commonPages: IPages = {
         lookAtQuaternion: new THREE.Quaternion(-0.5, 0.5, 0.5, 0.5),
       },
     },
+    animeColor: color2,
   },
   staking: {
     ...contentPage,
@@ -218,14 +255,22 @@ const Pages = isMobile ? mobilePages : commonPages
 export { Pages }
 
 export interface useSystemProps {
+  prevPage: PageInfo | undefined
   currentPage: PageInfo
   setCurrentPage: (currentPage: PageInfo) => void
 }
 
 function useSystem(): useSystemProps {
+  const [prevPage, setPrevPage] = useState<PageInfo>()
+  const pageTemp = useRef<PageInfo>()
   const [currentPage, setCurrentPage] = useState(Pages.welcome)
 
   const location = useLocation()
+
+  useEffect(() => {
+    setPrevPage(pageTemp.current)
+    pageTemp.current = currentPage
+  }, [currentPage])
 
   useEffect(() => {
     const { pathname } = location
@@ -245,6 +290,7 @@ function useSystem(): useSystemProps {
   }, [location])
 
   return {
+    prevPage,
     currentPage,
     setCurrentPage,
   }

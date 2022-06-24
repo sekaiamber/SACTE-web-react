@@ -6,6 +6,10 @@ export function pickRandom<T = any>(arr: T | T[]): T {
   if (Array.isArray(arr)) return arr[Math.floor(Math.random() * arr.length)]
   return arr
 }
+export function pickOrdered<T = any>(arr: T | T[], i: number): T {
+  if (Array.isArray(arr)) return arr[i % arr.length]
+  return arr
+}
 
 export function lerp(
   current: number,

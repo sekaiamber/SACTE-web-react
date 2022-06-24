@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import App, { AppOptions, MinMax, RawColor } from '.'
-import { pickRandom, random } from './math'
+import { pickOrdered, random } from './math'
 
 const carLightsFragment = `
   #define USE_FOG;
@@ -82,6 +82,30 @@ export default class CarLights {
     this.fade = fade
   }
 
+  generateColor(colors: RawColor[] | RawColor, repeat: number): any[] {
+    let useColors: THREE.Color | THREE.Color[]
+    if (Array.isArray(colors)) {
+      useColors = colors.map((c) => new THREE.Color(c))
+    } else {
+      useColors = new THREE.Color(colors)
+    }
+
+    const aColor = []
+
+    for (let i = 0; i < repeat; i++) {
+      const color = pickOrdered(useColors, i)
+      // console.log(color)
+      aColor.push(color.r)
+      aColor.push(color.g)
+      aColor.push(color.b)
+
+      aColor.push(color.r)
+      aColor.push(color.g)
+      aColor.push(color.b)
+    }
+    return aColor
+  }
+
   init(): void {
     const options = this.options
     // Curve with length 1
@@ -99,14 +123,6 @@ export default class CarLights {
 
     const aOffset = []
     const aMetrics = []
-    const aColor = []
-
-    let useColors: THREE.Color | THREE.Color[]
-    if (Array.isArray(this.colors)) {
-      useColors = this.colors.map((c) => new THREE.Color(c))
-    } else {
-      useColors = new THREE.Color(this.colors)
-    }
 
     for (let i = 0; i < options.lightPairsPerRoadWay; i++) {
       const radius = random(options.carLightsRadius)
@@ -141,16 +157,10 @@ export default class CarLights {
       aMetrics.push(radius)
       aMetrics.push(length)
       aMetrics.push(speed)
-
-      const color = pickRandom(useColors)
-      aColor.push(color.r)
-      aColor.push(color.g)
-      aColor.push(color.b)
-
-      aColor.push(color.r)
-      aColor.push(color.g)
-      aColor.push(color.b)
     }
+
+    const aColor = this.generateColor(this.colors, options.lightPairsPerRoadWay)
+
     instanced.setAttribute(
       'aOffset',
       new THREE.InstancedBufferAttribute(new Float32Array(aOffset), 3, false)

@@ -1,10 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useControls } from 'leva'
 import { createContainer } from './unstatedNextPro'
-
-interface useSystemStates {
-  debug: boolean
-}
+import { useLocation } from 'react-router'
 
 export interface useSystemProps {
   debug: boolean
@@ -21,12 +18,9 @@ export interface useSystemProps {
   useDebugBoolean: (group: string, name: string, value: boolean) => boolean
 }
 
-const defaultStates: useSystemStates = {
-  debug: window.location.hash === '#debug',
-}
-
 function useThreeArgs(): useSystemProps {
-  const [debug, setDebug] = useState(defaultStates.debug)
+  const location = useLocation()
+  const [debug, setDebug] = useState(location.hash === '#debug')
 
   const useDebugNumber = (
     group: string,

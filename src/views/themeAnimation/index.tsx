@@ -1,10 +1,11 @@
 import React, { useEffect, useRef } from 'react'
 import { Leva } from 'leva'
 import ThreeDebug from '../../store/threeDebug'
-import Sysrem from '../../store/system'
+import Sysrem, { PageColor } from '../../store/system'
 import App, { AppOptions } from './app'
 import { mountainDistortion } from './app/distortions'
 import useDebugState from './debugState'
+// import lerpColor from './lerpColor'
 import './style.scss'
 
 // const Loader: React.FC = () => {
@@ -73,13 +74,44 @@ const defaultOptions: AppOptions = {
     rightCars: ['#dadafa', '#bebae3', '#8f97e4'],
     sticks: '#dadafa',
   },
+  // colors: {
+  //   background: '#0e0f14',
+  //   roadColor: '#1c1c1d',
+  //   islandColor: '#0a0a0a',
+  //   shoulderLines: '#275f3c',
+  //   brokenLines: '#275f3c',
+  //   leftCars: ['#12db5b', '#12db5b', '#12db5b'],
+  //   rightCars: ['#12db5b', '#12db5b', '#12db5b'],
+  //   sticks: '#275f3c',
+  // },
 }
 
 let app: App
 
+function lerpColorGroup(
+  app: App,
+  prevPageColor: PageColor,
+  currentPageColor: PageColor
+): void {
+  // background
+  // roadColor
+  // islandColor
+  // shoulderLines
+  // brokenLines
+  // leftCars
+  // prevPageColor.leftCars.forEach((c1, i) => {
+  //   const c2 = currentPageColor.leftCars[i]
+  //   lerpColor(c1, c2, 1000, (c) => {
+  //     app.attributeSetter.setRoadColor
+  //   })
+  // })
+  // rightCars
+  // sticks
+}
+
 const ThemeAnimation: React.FC = () => {
   const debugState = ThreeDebug.useContainer()
-  const { currentPage } = Sysrem.useContainer()
+  const { prevPage, currentPage } = Sysrem.useContainer()
 
   const { debug } = debugState
 
@@ -101,19 +133,24 @@ const ThemeAnimation: React.FC = () => {
   }, [canvas])
 
   useEffect(() => {
-    const { animeState, animeShow } = currentPage
-    if (app) {
-      if (animeState) {
-        app.flatRoad(animeState.flatRoad)
-        app.cameraAutoLookAt(
-          animeState.camera.autoLookAt,
-          animeState.camera.lookAtQuaternion
-        )
-        app.moveCameraPosition(animeState.camera.position)
+    if (app && prevPage !== currentPage) {
+      const { animeShow } = currentPage
+      // if (animeState) {
+      //   app.flatRoad(animeState.flatRoad)
+      //   app.cameraAutoLookAt(
+      //     animeState.camera.autoLookAt,
+      //     animeState.camera.lookAtQuaternion
+      //   )
+      //   app.moveCameraPosition(animeState.camera.position)
+      // }
+      if (prevPage) {
+        if (currentPage.animeColor && prevPage.animeColor) {
+          lerpColorGroup(app, prevPage.animeColor, currentPage.animeColor)
+        }
       }
       app.visible(animeShow)
     }
-  }, [currentPage])
+  }, [currentPage, prevPage])
 
   return (
     <>
